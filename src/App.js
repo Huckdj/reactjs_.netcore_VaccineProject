@@ -1,11 +1,13 @@
-import logo from './logo.svg';
+import PublicRoute from './Route/PublicRoute';
 import './App.css';
-import HomeComponent from './Controller/Public/HomeComponent';
+import PrivateRoute from './Route/PrivateRoute';
+
 
 function App() {
   return (
     <>
-      <HomeComponent/>
+      <PublicRoute/>
+      <PrivateRoute />
     </>
   );
 }

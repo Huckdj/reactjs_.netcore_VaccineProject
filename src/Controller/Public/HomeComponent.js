@@ -1,12 +1,12 @@
 import React from 'react'
-import HeaderComponent from './HeaderComponent'
+import HeaderComponent from './Header/HeaderComponent'
 
 function HomeComponent() {
   return (
     <>
         <HeaderComponent/>
-        <div>
-      
+        <div className='container mx-auto'>
+          Home
         </div>
     </>
   )
