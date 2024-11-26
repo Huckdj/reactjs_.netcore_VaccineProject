@@ -1,0 +1,32 @@
+@keyframes width-animation {
+    from {
+      max-width:0px
+    }
+    to {
+        max-width:100%
+    }
+  }
+
+  .animation-login{
+    animation-name: width-animation;
+    animation-duration: 0.5s;
+    max-width: 100%;
+  }
+  .bg-animations{
+    animation-name: width-animation;
+    animation-duration: 2s;
+    max-width: 100%;
+  }
+  @keyframes opacity-animation {
+    from {
+        opacity:0
+    }
+    to {
+        opacity:1   
+    }
+  }
+  .login-form-animations{
+    opacity:1;
+    animation-name: opacity-animation;
+    animation-duration: 1s;
+  }

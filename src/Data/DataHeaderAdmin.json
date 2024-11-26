@@ -1,0 +1,57 @@
+{
+    "DataNameAdmin":[
+        {
+            "ID": 1,
+            "Name" : "Trang Chủ",
+            "CodeTab":"dashboard",
+            "icon":"https://i.imgur.com/GGFk3dD.png"
+        },
+        {   
+            "ID": 2,
+            "Name" : "Banner",
+            "icon":"https://i.imgur.com/xe5McDg.png",
+            "Childrend":[
+                {
+                    "Name":"Thêm Vị Trí Banner",
+                    "CodeTab": "PositionId"
+                },
+                {
+                    "Name":"Chỉnh Sửa Banner",
+                    "CodeTab": "EditBannerImg"
+                }
+            ]
+        },
+        {   
+            "ID": 3,
+            "Name" : "Bài Viết",
+            "icon" : "https://i.imgur.com/xxcdPxT.png",
+            "Childrend":[
+                {
+                    "Name":"Loại Bài Viết",
+                    "CodeTab": "Posttype"
+                },
+                {
+                    "Name":"Bài viết",
+                    "CodeTab": "Post"
+                }
+            ]
+        },
+        {   
+            "ID": 4,
+            "Name" : "Thuốc Vắc Xin",
+            "icon":"https://i.imgur.com/DuxFcLc.png",
+            "Childrend":[
+                {
+                "Name":"Loại Vắc Xin",
+                "CodeTab": "itemtype"
+                }
+            ]
+        },
+        {
+            "ID": 5,
+            "Name" : "Tài Khoản",
+            "CodeTab":"Account",
+            "icon":"https://i.imgur.com/7WePSYi.png"
+        }
+      ]
+}

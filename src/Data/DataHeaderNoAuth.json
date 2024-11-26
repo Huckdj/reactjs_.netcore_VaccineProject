@@ -1,10 +1,12 @@
 {
     "Header": [
       {
+        "ID": 1,
         "Name": "Trang Chủ",
         "Link":"/"
       },
       {
+        "ID": 2,
         "Name": "Giới Thiệu",
         "Children": [
           {
@@ -18,6 +20,7 @@
         ]
       },
       {
+        "ID": 3,
         "Name": "Vắc Xin Trẻ Em",
         "Children": [
           {
@@ -47,6 +50,7 @@
         ]
       },      
       {
+        "ID": 4,
         "Name": "Vắc Xin Người Lớn",
         "Children": [
           {
@@ -71,20 +75,24 @@
         ]
       },
       {
+        "ID": 5,
         "Name": "Bảng Giá",
-        "Link":"/bang-gia-vac-xin"
+        "Link":"/post/bang-gia-tiem-chung-madu-va-cac-hinh-thuc-thanh-toan-tien-loi"
       },
       {
+        "ID": 6,
         "Name": "Gói Vắc Xin",
         "Link":"cac-loai-vac-xin-cho-tre-em"
       },
       {
+        "ID": 7,
         "Name": "Tin Tức",
         "Link":"tin-tuc"
       },
       {
-        "Name": "Đăng Nhập",
-        "Link":"/"
+        "ID": 8,
+        "Name": "Đăng Nhập/Đăng Ký",
+        "Link":"/dang-nhap-hoac-dang-ky"
       }
 
     ]

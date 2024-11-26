@@ -1,0 +1,18 @@
+.content-banner{
+    justify-content: center !important;
+    display: flex !important;
+}
+.slick-next{
+    display:none;
+    right: 0;
+    width:100px
+}
+.slick-prev{
+    left: 0;
+    z-index:1;
+    width:100px
+}
+.slick-slider{
+    z-index:1;
+    
+}
