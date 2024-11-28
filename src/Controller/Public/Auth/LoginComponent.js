@@ -37,7 +37,6 @@ function LoginComponent() {
           };
           setNotifications((prev) => [...prev, newNotification]);
           localStorage.setItem('token',res.data.user.token)
-          localStorage.setItem('us','ok')
           setIsLoading(false)
           setTimeout(() => {
             setNotifications((prev) =>

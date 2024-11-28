@@ -19,7 +19,7 @@ function App() {
   const urlapi = process.env.REACT_APP_API_BASE_URL
   const [allowAdmin, setAllowAdmin] = useState('')
   const [isLoading,setIsLoading] = useState(true)
-  const [blocklogin, setBlocklogin] = useState('')
+  const [blocklogin, setBlocklogin] = useState()
   useEffect(() => {
     setBlocklogin(localStorage.getItem('us'))
     const token = localStorage.getItem("token");
@@ -32,14 +32,17 @@ function App() {
         })
         .then((res) => {
           setAllowAdmin(res.data.role)
+          setBlocklogin(true)
           setIsLoading(false)
         })
         .catch(err =>{
           setAllowAdmin('User')
           setIsLoading(false)
+          setBlocklogin(false)
         })
     }else{
       setIsLoading(false)
+      setBlocklogin(false)
     }
   },[]);
   if(isLoading){
@@ -61,10 +64,10 @@ function App() {
       <Route path="tat-ca-bai-viet-vaccine" element={<PostVaccineEverything />}/>
       <Route path="*" element={<NotFoundComponent />} />
       <Route path="/404" element={<NotFoundComponent />} />
-      {blocklogin === 'ok' ? (
+      {blocklogin ? (
         <>
-          <Route path='/dang-nhap-hoac-dang-ky' element={<NotFoundComponent/>}/>
-          <Route path='/dang-ky-tai-khoan' element={<NotFoundComponent/>}/>
+          <Route path='/dang-nhap-hoac-dang-ky' element={<HomeComponent/>}/>
+          <Route path='/dang-ky-tai-khoan' element={<HomeComponent/>}/>
         </>
       ):(
         <>

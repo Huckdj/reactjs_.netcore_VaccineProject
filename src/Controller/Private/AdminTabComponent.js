@@ -14,7 +14,9 @@ import AddPositionBanner from "./BannerTab/AddPositionBanner.js";
 import BannerComponent from "./BannerTab/BannerComponent.js"
 import PostType from "./PostTab/PostTypeComponent.js"
 import PostComponent from "./PostTab/PostComponent.js"
+import CountryItemComponent from "./Item/CountryItemComponent.js";
 import "../../Asset/Css/Admin.css"
+import AgeItemComponent from "./Item/AgeItemComponent.js";
 
 function AdminComponent() {
   const [Barstab, setBarstab] = useState(true);
@@ -151,6 +153,8 @@ function AdminComponent() {
       <div>{TabActive === "EditBannerImg" && <BannerComponent/>}</div>
       <div>{TabActive === "Posttype" && <PostType/>}</div>
       <div>{TabActive === "Post" && <PostComponent/>}</div>
+      <div>{TabActive === "Countryitem" && <CountryItemComponent/>}</div>
+      <div>{TabActive === "yeaholditem" && <AgeItemComponent/>}</div>
     </div>
   );
 }

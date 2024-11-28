@@ -20,30 +20,25 @@ function BottomHeader() {
   const [openSearch, setOpenSearch] = useState(false);
   const [Arraydropdownsm, setArraydropdownsm] = useState([]);
   useEffect(() => {
-    const usok = localStorage.getItem("us");
-    if (usok === 'ok'){
-      setNameHeader(DataHeaderAuth.Header);
-    }else{
-      setNameHeader(DataHeaderNoAuth.Header);   
-    }
+    const token = localStorage.getItem("token");
 
-    // if (token) {
-    //   setNameHeader(DataHeaderAuth.Header);
-    //   axios
-    //     .get(`${urlapi}/api/AuthUser/GetUserInfo`, {
-    //       headers: {
-    //         Authorization: `Bearer ` + token,
-    //       },
-    //     })
-    //     .then((res) => {
-    //         setNameHeader(DataHeaderAuth.Header);
-    //     })
-    //     .catch(err =>{
-    //       setNameHeader(DataHeaderNoAuth.Header)
-    //     })
-    // } else {
-    //   setNameHeader(DataHeaderNoAuth.Header);
-    // }
+    if (token) {
+      setNameHeader(DataHeaderAuth.Header);
+      axios
+        .get(`${urlapi}/api/AuthUser/GetUserInfo`, {
+          headers: {
+            Authorization: `Bearer ` + token,
+          },
+        })
+        .then((res) => {
+            setNameHeader(DataHeaderAuth.Header);
+        })
+        .catch(err =>{
+          setNameHeader(DataHeaderNoAuth.Header)
+        })
+    } else {
+      setNameHeader(DataHeaderNoAuth.Header);
+    }
   }, []);
 
   const handlecheckdropdown = (ex) => {

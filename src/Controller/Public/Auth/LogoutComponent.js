@@ -20,7 +20,7 @@ function LogoutComponent() {
     useEffect(()=>{
         const tokenlogout = `${token}${random}`
         localStorage.setItem('token',tokenlogout)
-        localStorage.removeItem('us')
+        window.location.reload();
         navigate('/')
         const timer = setTimeout(() => {
           setIsLoading(false)

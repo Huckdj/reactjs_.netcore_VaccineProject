@@ -42,8 +42,16 @@
             "icon":"https://i.imgur.com/DuxFcLc.png",
             "Childrend":[
                 {
-                "Name":"Loại Vắc Xin",
-                "CodeTab": "itemtype"
+                    "Name":"Nước sản xuất",
+                    "CodeTab": "Countryitem"
+                },
+                {
+                    "Name":"Tuổi Vắc Xin",
+                    "CodeTab": "yeaholditem"
+                },
+                {
+                    "Name":"Loại Vắc Xin",
+                    "CodeTab": "itemtype"
                 }
             ]
         },
