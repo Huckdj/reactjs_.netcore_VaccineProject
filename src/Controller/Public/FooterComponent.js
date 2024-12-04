@@ -75,8 +75,8 @@ function FooterComponent() {
   const [danhmucdrd, setDanhmuc] = useState(false)
   const [timhieuthemdrd, setTimhieuthem] = useState(false)
   return (
-    <div className='mt-10 pb-2 shadow-2xl border'>
-      <div className='lg:block hidden'>
+    <div className='footer-component mt-10 pb-2 shadow-2xl border'>
+      <div className='lg:grid hidden'>
         <div className='bg-[#1250dc] h-[50px] hidden lg:flex items-center'>
 
           <div className='container mx-auto justify-between flex'>

@@ -31,7 +31,7 @@ function PostDetailComponent() {
     return (
         <>
             <HeaderComponent/>
-            <div className='container mx-auto p-1'>
+            <div className='container mx-auto grid p-1'>
                 {Array.isArray(data) && data.map((e, index) => (
                     <div key={index} className='mt-2'>
                         <div
@@ -45,11 +45,8 @@ function PostDetailComponent() {
                     </div>
                 ))}
             </div>
-            <div className=''>
-            <FooterComponent/>
-            </div>
             {isLoading && <LoadingComponent/>}
-
+            <FooterComponent/>
         </>
     );
 }
