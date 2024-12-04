@@ -82,12 +82,12 @@
       {
         "ID": 6,
         "Name": "Gói Vắc Xin",
-        "Link":"cac-loai-vac-xin-cho-tre-em"
+        "Link":"/post/cac-loai-vac-xin-cho-tre-em"
       },
       {
         "ID": 7,
         "Name": "Tin Tức",
-        "Link":"tin-tuc"
+        "Link":"/tin-tuc"
       },
       {
         "ID": 8,
@@ -105,7 +105,7 @@
           }          
         ]
       }
-
+      
     ]
   }
   

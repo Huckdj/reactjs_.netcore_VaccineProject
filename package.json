@@ -8,6 +8,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@microsoft/signalr": "^8.0.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -21,7 +22,10 @@
     "react-router-dom": "^6.27.0",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.30.2",
+    "react-tabs": "^6.0.2",
     "react-type-animation": "^3.2.0",
+    "recharts": "^2.14.1",
+    "rsuite": "^5.74.2",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },

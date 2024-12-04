@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ConvertDatetimeserver from "../../Additional/ConvertDatetimeserver";
-import { error } from "ajv/dist/vocabularies/applicator/dependencies";
+// import { error } from "ajv/dist/vocabularies/applicator/dependencies";
 import NotificationComponent from "../../Additional/NotificationComponent";
 import LoadingLoginForm from "../../Additional/LoadingLoginForm";
 function CountryItemComponent() {
@@ -235,10 +234,11 @@ function CountryItemComponent() {
             </button>
           </div>
         </div>
+
         {/* insert new item */}
         <div
-          className={`transition-all delay-200 flex overflow-hidden ${
-            openinsert ? `max-h-screen` : `max-h-0`
+          className={`transition-all delay-200 flex ${
+            openinsert ? `max-h-screen overflow-scroll` : `max-h-0 flex overflow-hidden`
           }`}
         >
           <div>

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faSearch, faX } from "@fortawesome/free-solid-svg-icons";
 import BottomHeader from "./BottomHeader";
 import SearchtabHeader from "./SearchtabHeader";
+import { Link } from "react-router-dom";
 function TopHeader() {
   const [HamburgerMenu, setHamburgerMenu] = useState('none');
   const [openSearch, setSearch] = useState(false)
@@ -64,7 +65,7 @@ function TopHeader() {
 
         {/* Icon tìm kiếm bên phải */}
         <div className="md:flex hidden">
-          <a href="#" className="flex items-center md:mr-[30px]">
+          <Link to="/tim-kiem-trung-tam" className="flex items-center md:mr-[30px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 384 512"
@@ -79,9 +80,9 @@ function TopHeader() {
             <p className="uppercase font-bold text-[#086ec5] md:block hidden md:text-[6px] lg:text-[13px] whitespace-nowrap">
               Tìm Trung Tâm MADU
             </p>
-          </a>
+          </Link>
 
-          <a href="#" className="flex items-center mr-[30px]">
+          <Link to="/dat-lich-tiem-chung" className="flex items-center mr-[30px]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 448 512"
@@ -96,7 +97,7 @@ function TopHeader() {
             <p className="uppercase font-bold text-[#086ec5] md:block hidden md:text-[6px] lg:text-[13px] whitespace-nowrap">
               Đặt Lịch Tiêm
             </p>
-          </a>
+          </Link>
           <div className="items-center mr-[30px] text-[#FF7000] font-bold max-w-13 hidden md:block">
             <a className="lg:text-[10px] md:text-[8px] xl:text-[13px] whitespace-nowrap">
               Hotline: 0349999999

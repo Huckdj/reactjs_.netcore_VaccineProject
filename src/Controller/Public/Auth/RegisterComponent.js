@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoadingLoginForm from "../../Additional/LoadingLoginForm";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import { Navigate } from "react-router-dom";
 function LoginComponent() {
   const logo = process.env.REACT_APP_LOGO_IMG;
   const urlapi = process.env.REACT_APP_API_BASE_URL;

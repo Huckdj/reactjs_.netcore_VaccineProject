@@ -1,0 +1,28 @@
+.shadowform{
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1),
+    0 -2px 3px rgba(0, 0, 0, 0.1),
+    -2px 0 3px rgba(0, 0, 0, 0.1),
+    2px 0 3px rgba(0, 0, 0, 0.1);
+}
+.rs-tag-md{
+    display:flex;
+    justify-items:end
+
+}
+.select-vaccine-pack .rs-tag-text{
+    margin-right:30px
+}
+.rs-btn{
+    padding:100px
+}
+.rs-checkbox-label{
+    font-size: 10px;
+}
+.rs-picker-search{
+    display:none
+}
+.rs-tag-closable{
+    background-color:#dfdfdf;
+    padding:10px;
+    border-radius: 0.5rem;
+}

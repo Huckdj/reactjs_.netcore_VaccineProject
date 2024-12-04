@@ -14,7 +14,11 @@ import RegisterComponent from './Controller/Public/Auth/RegisterComponent.js'
 import LogoutComponent from './Controller/Public/Auth/LogoutComponent.js';
 import InfoUserComponent from './Controller/Public/InfoUserComponent.js'
 import LoadingComponent from './Controller/Additional/LoadingComponent.js';
-
+import FindCenterComponent from './Controller/Public/Home/FindCenterComponent.js';
+import BookingComponent from './Controller/Public/BookingComponent.js';
+import ThanksOrderComponent from './Controller/Public/ThanksOrderComponent.js'
+import SearchResultComponent from './Controller/Public/SearchResultComponent.js';
+import NewsComponent from './Controller/Public/NewsComponent.js';
 function App() {
   const urlapi = process.env.REACT_APP_API_BASE_URL
   const [allowAdmin, setAllowAdmin] = useState('')
@@ -76,8 +80,12 @@ function App() {
         </>
       )}
       <Route path='/dang-xuat' element={<LogoutComponent/>}/>
-      <Route path='//thong-tin-nguoi-dung' element={<InfoUserComponent/>}/>
-      
+      <Route path='/thong-tin-nguoi-dung' element={<InfoUserComponent/>}/>
+      <Route path='/tim-kiem-trung-tam' element={<FindCenterComponent/>}/>
+      <Route path='/dat-lich-tiem-chung' element={<BookingComponent/>}/>
+      <Route path='/cam-on' element={<ThanksOrderComponent/>}/>
+      <Route path='/search' element={<SearchResultComponent/>}/>
+      <Route path='/tin-tuc' element={<NewsComponent/>}/>
     </Routes>
   );
 }

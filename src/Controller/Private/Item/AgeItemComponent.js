@@ -34,7 +34,7 @@ function AgeItemComponent() {
   const handleAdd = () =>{
   setIsLoading(!isLoading)
     if(payload.NameYearOld === ""){
-        setIsLoading(!isLoading)
+        setIsLoading(false)
         setResmsg("Không bỏ trống thư mục tuổi vắc xin")
             if (msg === false) {
                 setMsg(true);
@@ -236,8 +236,8 @@ function AgeItemComponent() {
         </div>
         {/* insert new item */}
         <div
-          className={`transition-all delay-200 flex overflow-hidden ${
-            openinsert ? `max-h-screen` : `max-h-0`
+          className={`transition-all delay-100 flex ${
+            openinsert ? `max-h-screen` : `max-h-0 overflow-hidden`
           }`}
         >
           <div>
@@ -263,20 +263,20 @@ function AgeItemComponent() {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
             <tr>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
                 ID
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
                 Thư mục tuổi Vắc Xin
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
                 Thời gian tạo
               </th>
 
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
                 Hành động
               </th>
-              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b">
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
                 Khóa
               </th>
             </tr>

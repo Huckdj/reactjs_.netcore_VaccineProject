@@ -45,7 +45,9 @@ function PostDetailComponent() {
                     </div>
                 ))}
             </div>
+            <div className=''>
             <FooterComponent/>
+            </div>
             {isLoading && <LoadingComponent/>}
 
         </>

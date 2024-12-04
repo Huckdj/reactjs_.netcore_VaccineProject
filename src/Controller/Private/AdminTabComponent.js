@@ -17,7 +17,11 @@ import PostComponent from "./PostTab/PostComponent.js"
 import CountryItemComponent from "./Item/CountryItemComponent.js";
 import "../../Asset/Css/Admin.css"
 import AgeItemComponent from "./Item/AgeItemComponent.js";
-
+import PackageItemComponent from "./Item/PackageItemComponent.js";
+import SingleItemComponent from "./Item/SingleItemComponent.js"
+import VaccineCenterComponent from "./Item/VaccineCenterComponent.js";
+import BookingPrivateComponent from "./BookingPrivateComponent.js";
+import ChatPrivateComponent from "./ChatPrivateComponent.js";
 function AdminComponent() {
   const [Barstab, setBarstab] = useState(true);
   const [TabActive, SetTabActive] = useState("dashboard");
@@ -73,7 +77,7 @@ function AdminComponent() {
             ${
               Barstab === true
                 ? `opacity-100 -translate-x-full`
-                : "bg-[#a4ebdd] h-screen w-[300px] translate-x-0"
+                : "shadow-2xl bg-white z-20 h-screen w-[300px] translate-x-0"
             }`}
           >
             <div
@@ -87,15 +91,15 @@ function AdminComponent() {
             </div>
 
             <div
-              className={`mt-6 none ${Barstab === true ? `hidden` : `block`}`}
+              className={`mt-[40px] pt-1 none ${Barstab === true ? `hidden` : `block bg-white rounded-lg pb-2`}`}
             >
 
               {/* Tab Menu khi mở */}
               {DataNameAdmin.map((Tab) => (
                 <div
                   key={Tab.CodeTab}
-                  className={`p-3 border-b rounded-md mt-2 whitespace-nowrap w-full ${
-                    Tab.CodeTab && TabActive === Tab.CodeTab ? "bg-white" : ""
+                  className={`p-3 border-b rounded-md mt-2 whitespace-nowrap font-semibold w-full ${
+                    Tab.CodeTab && TabActive === Tab.CodeTab ? "bg-[#6a99fff3] text-white" : ""
                   }`}
                 >
                   {!Tab.CodeTab ? (
@@ -103,7 +107,7 @@ function AdminComponent() {
                       className="w-full flex items-center cursor-pointer"
                       onClick={() => handlecheckdropdown(Tab.Name)}
                     >
-                      <img src={Tab.icon} alt={Tab.Name} className="w-6 mr-2" />
+                      <img src={Tab.icon} id="icon-tab" alt={Tab.Name} className="w-6 mr-2" />
                       {Tab.Name}
                       <div className="ml-auto">
                         {" "}
@@ -123,7 +127,7 @@ function AdminComponent() {
                       className="flex items-center justify-center"
                       onClick={() => handleActive(Tab.CodeTab)}
                     >
-                      <img src={Tab.icon} alt={Tab.Name} className="w-6 mr-2" />
+                      <img src={Tab.icon} alt={Tab.Name} id="tab-icon-parent" className="w-6 mr-2" />
                       {Tab.Name}
                     </button>
                   )}
@@ -133,7 +137,7 @@ function AdminComponent() {
                       {Arraydropdownsm.map((r, index) => (
                         <button
                           key={index}
-                          className="block p-4 w-full border-b whitespace-nowrap text-[14px] hover:bg-gray-200"
+                          className="block p-4 w-full border-b whitespace-nowrap text-[14px] text-black hover:bg-gray-200"
                           onClick={() => handleActive(r.CodeTab)}
                         >
                           {r.Name}
@@ -155,6 +159,11 @@ function AdminComponent() {
       <div>{TabActive === "Post" && <PostComponent/>}</div>
       <div>{TabActive === "Countryitem" && <CountryItemComponent/>}</div>
       <div>{TabActive === "yeaholditem" && <AgeItemComponent/>}</div>
+      <div>{TabActive === "packagevaccine" && <PackageItemComponent/>}</div>
+      <div>{TabActive === "singlevaccine" && <SingleItemComponent/>}</div>
+      <div>{TabActive === "AddressCenter" && <VaccineCenterComponent/>}</div>
+      <div>{TabActive === "BookingVaccine" && <BookingPrivateComponent/>}</div>
+      <div>{TabActive === "support" && <ChatPrivateComponent/>}</div>
     </div>
   );
 }

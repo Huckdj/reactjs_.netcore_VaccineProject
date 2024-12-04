@@ -75,7 +75,7 @@ function FooterComponent() {
   const [danhmucdrd, setDanhmuc] = useState(false)
   const [timhieuthemdrd, setTimhieuthem] = useState(false)
   return (
-    <div className='mt-10 min-h-[800px] lgmin-h-[500px] shadow-2xl border'>
+    <div className='mt-10 pb-2 shadow-2xl border'>
       <div className='lg:block hidden'>
         <div className='bg-[#1250dc] h-[50px] hidden lg:flex items-center'>
 
@@ -85,7 +85,7 @@ function FooterComponent() {
               <span className='text-white font-medium text-xl'>Xem hệ thống trung tâm toàn quốc</span>
             </div>
             <div className='items-center flex'>
-              <Link to="/aaa" className='text-blue-500 p-2 rounded-full bg-white'>Xem danh sách trung tâm hiện tại</Link>
+              <Link to="/tim-kiem-trung-tam" className='text-blue-500 p-2 rounded-full bg-white'>Xem danh sách trung tâm hiện tại</Link>
             </div>
           </div>
 
@@ -200,7 +200,7 @@ function FooterComponent() {
         <div className='place-items-center grid bg-[#1250dc]'>
           <span className='text-white my-2'>Xem hệ thống trung tâm trên toàn quốc</span>
           <div className='items-center flex'>
-              <Link to="/aaa" className='text-[#1250dc] text-sm my-3 p-2 rounded-full bg-white'>Xem danh sách trung tâm hiện tại</Link>
+              <Link to="/tim-kiem-trung-tam" className='text-[#1250dc] text-sm my-3 p-2 rounded-full bg-white'>Xem danh sách trung tâm hiện tại</Link>
           </div>
         </div>
         

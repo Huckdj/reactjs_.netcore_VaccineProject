@@ -4,12 +4,12 @@
             "ID": 1,
             "Name" : "Trang Chủ",
             "CodeTab":"dashboard",
-            "icon":"https://i.imgur.com/GGFk3dD.png"
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1732934077/d16f8903-fb23-41fd-a014-d085af942f65.png"
         },
         {   
             "ID": 2,
             "Name" : "Banner",
-            "icon":"https://i.imgur.com/xe5McDg.png",
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1732934122/9d440eba-93ce-4480-8deb-7c75607af39d.png",
             "Childrend":[
                 {
                     "Name":"Thêm Vị Trí Banner",
@@ -24,7 +24,7 @@
         {   
             "ID": 3,
             "Name" : "Bài Viết",
-            "icon" : "https://i.imgur.com/xxcdPxT.png",
+            "icon" : "https://res.cloudinary.com/dumx42hqq/image/upload/v1732934184/06bd8806-9652-466c-bc66-b191876727a0.png",
             "Childrend":[
                 {
                     "Name":"Loại Bài Viết",
@@ -39,7 +39,7 @@
         {   
             "ID": 4,
             "Name" : "Thuốc Vắc Xin",
-            "icon":"https://i.imgur.com/DuxFcLc.png",
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1732934231/5728206_coronavirus_flu_protection_vaccine_virus_icon_1_cu2nrs.png",
             "Childrend":[
                 {
                     "Name":"Nước sản xuất",
@@ -50,8 +50,12 @@
                     "CodeTab": "yeaholditem"
                 },
                 {
-                    "Name":"Loại Vắc Xin",
-                    "CodeTab": "itemtype"
+                    "Name":"Vắc xin gói",
+                    "CodeTab": "packagevaccine"
+                },
+                {
+                    "Name":"Vắc xin lẻ",
+                    "CodeTab": "singlevaccine"
                 }
             ]
         },
@@ -59,7 +63,26 @@
             "ID": 5,
             "Name" : "Tài Khoản",
             "CodeTab":"Account",
-            "icon":"https://i.imgur.com/7WePSYi.png"
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1732933958/98b51ac8-846e-4d32-b424-e718ff4d3233.png"
+        },
+        {
+            "ID": 6,
+            "Name" : "Địa chỉ trung tâm",
+            "CodeTab":"AddressCenter",
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1732933882/77238f8d-c281-410d-ad85-b9f2b950f3a1.png"
+        },
+        {
+            "ID": 7,
+            "Name" : "Đơn Lịch đặt trước tiêm chủng",
+            "CodeTab":"BookingVaccine",
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1733281462/73cbf903-c7fa-434b-9285-920f94d9edbf.png"
+        },
+        {
+            "ID": 8,
+            "Name" : "Chat hỗ trợ",
+            "CodeTab":"support",
+            "icon":"https://res.cloudinary.com/dumx42hqq/image/upload/v1733296026/e05f7838-7b75-4511-95a0-f94b1c3b47e3.png"
         }
+        
       ]
 }

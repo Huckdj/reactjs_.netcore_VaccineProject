@@ -27,31 +27,26 @@ function PostVaccineEverything() {
       });
   }, []);
 
-  // Calculate the current data to display
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
 
-  // Handle page change
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
-  // Helper function to generate pagination buttons
   const getPaginationButtons = () => {
     const pageNumbers = [];
     const maxPagesToShow = 3;
     const startPage = Math.max(currentPage - Math.floor(maxPagesToShow / 2), 1);
     const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
 
-    // Add the page numbers to the list
     for (let i = startPage; i <= endPage; i++) {
       pageNumbers.push(i);
     }
 
-    // Add "..." button if there are more pages on the left or right
     if (startPage > 1) {
       pageNumbers.unshift('...');
     }
@@ -65,78 +60,73 @@ function PostVaccineEverything() {
   return (
     <>
       <HeaderComponent />
-      <div className="container mx-auto">
+      <div className="container mx-auto px-4">
         <div className="font-bold text-2xl border-b-2 border-green-500 mt-2 mb-4">Danh Mục Vắc Xin</div>
-        <div className="grid grid-cols-1 md:grid-cols-4 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-2">
           {currentItems.map((e, index) => (
-            <Link key={index} to={`/post/${e.LinkRoute}`} className="border m-2">
-              <div className="justify-center flex items-center overflow-hidden">
+            <Link key={index} to={`/post/${e.LinkRoute}`} className="border rounded-lg shadow-lg hover:shadow-xl overflow-hidden">
+              <div className="relative">
                 <img
                   src={e.LinkImages}
                   alt={e.Title || 'Image'}
-                  className="justify-center transition-all delay-100 ease-in-out flex items-center hover:scale-110"
+                  className="w-full h-56 object-cover transition-all duration-300 ease-in-out"
                 />
               </div>
-              <p className="justify-center flex mt-2 mb-1 hover:text-green-500 text-ellipsis overflow-hidden whitespace-nowrap">{e.Title}</p>
-              <div className="line-clamp-2 text-sm text-gray-500 p-1 pb-0 mb-2 text-justify">{e.ShortContent}</div>
+              <div className="p-4">
+                <p className="font-semibold text-lg truncate text-blue-500">{e.Title}</p>
+                <div className="text-sm text-gray-500 mt-2 line-clamp-2">{e.ShortContent}</div>
+              </div>
             </Link>
           ))}
         </div>
 
         {/* Pagination controls */}
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-center mt-6">
           {/* Previous Page Button */}
           {currentPage > 1 ? (
             <button
               onClick={() => handlePageChange(currentPage - 1)}
-              className="mx-1 px-3 py-1 border text-blue-500"
+              className="mx-2 px-4 py-2 border text-blue-500 rounded-lg hover:bg-gray-100"
             >
-              <FontAwesomeIcon icon={faChevronLeft} className='text-green-500'/>
+              <FontAwesomeIcon icon={faChevronLeft} className="text-green-500" />
             </button>
-          ):(
-            
-          <div
-              className="mx-1 px-3 py-1 border text-blue-500"
-            >
-              <FontAwesomeIcon icon={faChevronLeft} className='text-gray-500'/>
-        </div>
+          ) : (
+            <div className="mx-2 px-4 py-2 border text-blue-500 rounded-lg bg-gray-200">
+              <FontAwesomeIcon icon={faChevronLeft} className="text-gray-500" />
+            </div>
           )}
 
           {getPaginationButtons().map((item, index) => (
-            <div>
-                <button
-                key={index}
-                onClick={() => {
-                    if (item === '...') return;
-                    handlePageChange(item);
-                }}
-                className={`mx-1 px-3 py-1 border mr-2 ml-2 ${
-                    currentPage === item ? 'bg-green-500 rounded-full text-white' : 'bg-white rounded-full -blue-500'
-                }`}
-                disabled={item === '...'}
-                >
-                {item}
-                </button>
-            </div>
+            <button
+              key={index}
+              onClick={() => {
+                if (item === '...') return;
+                handlePageChange(item);
+              }}
+              className={`mx-1 px-3 py-1 border rounded-full ${currentPage === item ? 'bg-green-500 text-white' : 'bg-white text-blue-500 hover:bg-gray-100'}`}
+              disabled={item === '...'}
+            >
+              {item}
+            </button>
           ))}
 
           {/* Next Page Button */}
           {currentPage < totalPages ? (
             <button
               onClick={() => handlePageChange(currentPage + 1)}
-              className="mx-1 px-3 py-1 border text-blue-500"
+              className="mx-2 px-4 py-2 border text-blue-500 rounded-lg hover:bg-gray-100"
             >
-              <FontAwesomeIcon icon={faChevronRight} className='text-green-500'/>
+              <FontAwesomeIcon icon={faChevronRight} className="text-green-500" />
             </button>
-          ):
-          <div
-              className="mx-1 px-3 py-1 border text-blue-500"
-            >
-              <FontAwesomeIcon icon={faChevronRight} className='text-gray-500'/>
-        </div>}
+          ) : (
+            <div className="mx-2 px-4 py-2 border text-blue-500 rounded-lg bg-gray-200">
+              <FontAwesomeIcon icon={faChevronRight} className="text-gray-500" />
+            </div>
+          )}
         </div>
       </div>
-      {isLoading && <LoadingComponent/>}
+
+      {isLoading && <LoadingComponent />}
     </>
   );
 }
