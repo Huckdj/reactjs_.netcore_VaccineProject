@@ -25,8 +25,6 @@ function formatPhoneNumber(phoneNumber) {
   return phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1.$2.$3");
 }
 
-const formattedPhoneNumber = formatPhoneNumber("0338988152");
-console.log(formattedPhoneNumber); // Kết quả: "033.898.8152"
 
 const InfoUserComponent = () => {
   const urlapi = process.env.REACT_APP_API_BASE_URL;
