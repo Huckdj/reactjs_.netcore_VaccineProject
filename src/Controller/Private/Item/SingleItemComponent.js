@@ -14,6 +14,8 @@ function PackageItemComponent() {
   const [data, setData] = useState([]);
   const urlapi = process.env.REACT_APP_API_BASE_URL;
   const [reloaddata, setReloaddata] = useState(true);
+  
+  // Fetch main data
   useEffect(() => {
     const fetchData = async () => {
       axios
@@ -31,6 +33,7 @@ function PackageItemComponent() {
     }
   }, [reloaddata]);
 
+  // Fetch country items
   const [TypePack, setTypePack] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -40,6 +43,18 @@ function PackageItemComponent() {
     };
     fetchData();
   }, []);
+
+  // Fetch age types
+  const [AgePack, setAgePack] = useState([]);
+  useEffect(() => {
+    const fetchAgeTypes = async () => {
+      axios.post(`${urlapi}/api/AgeItem/GetData`).then((res) => {
+        setAgePack(res.data.data);
+      });
+    };
+    fetchAgeTypes();
+  }, []);
+
   const [seenpostfull, setSeenpostfull] = useState(false);
   const [FullContents, setFullContents] = useState();
   const handleOpenReview = (e) => {
@@ -56,12 +71,12 @@ function PackageItemComponent() {
     FullContent: "",
     LinkImages:"",
     LinkRoute:"",
-    CountryItem:""
+    CountryItem:"",
+    AgeType: "", // Added AgeType to payload
   });
 
   const editor = useRef(null);
   const handleUpdateFullContent = (newContent) => {
-    // const newContent = editor.current.value;
     setPayload((prevState) => ({
       ...prevState,
       FullContent: newContent,
@@ -103,7 +118,7 @@ function PackageItemComponent() {
   const handleSave = () =>{
     // check data send
     if(payload.Name === '' || payload.Price === '' || payload.CountryItem === '' || payload.ShortContent === '' 
-      || payload.FullContent === '' || payload.LinkImages === '' || payload.LinkRoute === '' )
+      || payload.FullContent === '' || payload.LinkImages === '' || payload.LinkRoute === '' || payload.AgeType === '')
     {
       setResmsg('Thiếu trường dữ liệu')
       if (msg === false) {
@@ -118,8 +133,20 @@ function PackageItemComponent() {
     }
 
     else{
+      // Modify payload to match the new structure
+      const submitPayload = {
+        name: payload.Name,
+        Price: parseFloat(payload.Price),
+        CountryItem: payload.CountryItem,
+        ShortContent: payload.ShortContent,
+        FullContent: payload.FullContent,
+        LinkImages: payload.LinkImages,
+        LinkRoute: payload.LinkRoute,
+        AgeType: payload.AgeType
+      };
+
       if(payload.ID === ''){
-        axios.post(`${urlapi}/api/SingleItem/InsertItem`,payload)
+        axios.post(`${urlapi}/api/SingleItem/InsertItem`, submitPayload)
         .then(
           res =>{
             setResmsg(res.data.data[0].ErrorMessage)
@@ -132,7 +159,8 @@ function PackageItemComponent() {
               FullContent: "",
               LinkImages:"",
               LinkRoute:"",
-              CountryItem:""
+              CountryItem:"",
+              AgeType: ""
             })
             if (msg === false) {
               setMsg(true);
@@ -159,7 +187,9 @@ function PackageItemComponent() {
         })
       }
       else{
-        axios.post(`${urlapi}/api/SingleItem/EditSingleItem`,payload)
+        // Add ID to payload for edit
+        submitPayload.id = payload.ID;
+        axios.post(`${urlapi}/api/SingleItem/EditSingleItem`, submitPayload)
         .then(
           res =>{
             setResmsg(res.data.data[0].ErrorMessage)
@@ -172,7 +202,8 @@ function PackageItemComponent() {
               FullContent: "",
               LinkImages:"",
               LinkRoute:"",
-              CountryItem:""
+              CountryItem:"",
+              AgeType: ""
             })
             if (msg === false) {
               setMsg(true);
@@ -210,7 +241,8 @@ function PackageItemComponent() {
       FullContent: e.FullContent,
       LinkImages:e.LinkImages,
       LinkRoute:e.LinkRoute,
-      CountryItem:e.CountryItem
+      CountryItem:e.CountryItem,
+      AgeType: e.AgeType
     })
     setOpeninsert(true)
   }
@@ -378,8 +410,8 @@ function PackageItemComponent() {
             ></input>
 
             <hr className="mt-6" />
-            {/* Chọn nhóm tuổi */}
-            <label className="font-semibold mb-2 mt-2">Nhóm tuổi</label>
+            {/* Chọn nước sản xuất */}
+            <label className="font-semibold mb-2 mt-2">Chọn nước sản xuất</label>
             <select
               id="select-CountryItem"
               className="border outline-none px-2 py-1 font-semibold rounded-md"
@@ -387,7 +419,7 @@ function PackageItemComponent() {
               onChange={(e)=>setPayload({...payload,CountryItem:e.target.value})}
             >
               <option value="" className="text-gray-400" disabled>
-                Chọn nhóm tuổi
+                Chọn nước sản xuất
               </option>
               {TypePack.map((r) => (
                 <option
@@ -398,6 +430,30 @@ function PackageItemComponent() {
                 </option>
               ))}
             </select>
+
+
+            <hr className="mt-6" />
+        {/* Chọn độ tuổi */}
+        <label className="font-semibold mb-2 mt-2">Độ tuổi</label>
+        <select
+          id="select-AgeType"
+          className="border outline-none px-2 py-1 font-semibold rounded-md"
+          value={payload.AgeType}
+          onChange={(e)=>setPayload({...payload, AgeType:e.target.value})}
+        >
+          <option value="" className="text-gray-400" disabled>
+            Chọn độ tuổi
+          </option>
+          {AgePack.map((r) => (
+            <option
+              key={r.ID}
+              value={r.NameYearOld}
+              className="text-black font-semibold"
+            >
+              {r.NameYearOld}
+            </option>
+          ))}
+        </select>
 
             <hr className="mt-6" />
             {/* Mô tả ngắn */}
@@ -482,6 +538,10 @@ function PackageItemComponent() {
               </th>
 
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
+                Độ tuổi
+              </th>
+
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
                 Nước sản xuất
               </th>
               <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider border-b whitespace-nowrap">
@@ -538,6 +598,9 @@ function PackageItemComponent() {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap border-r border-b">
                   {e.PriceFormat}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap border-r border-b">
+                  {e.AgeType}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap border-r border-b">
                   {e.CountryItem}

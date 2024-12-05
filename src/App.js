@@ -19,6 +19,8 @@ import BookingComponent from './Controller/Public/BookingComponent.js';
 import ThanksOrderComponent from './Controller/Public/ThanksOrderComponent.js'
 import SearchResultComponent from './Controller/Public/SearchResultComponent.js';
 import NewsComponent from './Controller/Public/NewsComponent.js';
+import VaccineComponent from './Controller/Public/VaccineComponent.js'
+import ProductDetail from './Controller/Public/ProductVaccineDetail.js';
 function App() {
   const urlapi = process.env.REACT_APP_API_BASE_URL
   const [allowAdmin, setAllowAdmin] = useState('')
@@ -86,6 +88,8 @@ function App() {
       <Route path='/cam-on' element={<ThanksOrderComponent/>}/>
       <Route path='/search' element={<SearchResultComponent/>}/>
       <Route path='/tin-tuc' element={<NewsComponent/>}/>
+      <Route path='/goi-vac-xin' element={<VaccineComponent/>}/>
+      <Route path="/vaccine/:route" element={<ProductDetail />}/>
     </Routes>
   );
 }
