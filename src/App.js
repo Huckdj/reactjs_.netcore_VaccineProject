@@ -21,6 +21,8 @@ import SearchResultComponent from './Controller/Public/SearchResultComponent.js'
 import NewsComponent from './Controller/Public/NewsComponent.js';
 import VaccineComponent from './Controller/Public/VaccineComponent.js'
 import ProductDetail from './Controller/Public/ProductVaccineDetail.js';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import ResetPassword from './Controller/Public/Auth/ResetPassword.js'
 function App() {
   const urlapi = process.env.REACT_APP_API_BASE_URL
   const [allowAdmin, setAllowAdmin] = useState('')
@@ -58,6 +60,7 @@ function App() {
     </div>)
   }
   return (
+    <GoogleOAuthProvider clientId="454080178023-lthmoagt7fcd4pe086olq14od0ba9t0b.apps.googleusercontent.com">
     <Routes>
       <Route path='/' element={<HomeComponent />} />
       {allowAdmin !== 'Admin' ? (
@@ -90,7 +93,9 @@ function App() {
       <Route path='/tin-tuc' element={<NewsComponent/>}/>
       <Route path='/goi-vac-xin' element={<VaccineComponent/>}/>
       <Route path="/vaccine/:route" element={<ProductDetail />}/>
+      <Route path="/quen-mat-khau" element={<ResetPassword />}/>
     </Routes>
+    </GoogleOAuthProvider>
   );
 }
 

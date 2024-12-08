@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
 
 import LoadingLoginForm from "../../Additional/LoadingLoginForm";
 function LoginComponent() {
@@ -72,6 +74,79 @@ function LoginComponent() {
       );
     }, 2000);
   }
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      setIsLoading(true);
+      const decoded = jwtDecode(credentialResponse.credential);
+      
+      const googleLoginData = {
+        Email: decoded.email,
+        GoogleId: decoded.sub
+      };
+
+      const response = await axios.post(`${urlapi}/api/AuthUser/GoogleLogin`, googleLoginData);
+
+      if (response.data.user.ErrorCode === 0) {
+        const id = Date.now();
+        const newNotification = {
+          id,
+          msg: `Đăng nhập thành công! Chúng tôi đang chuyển hướng`,
+          open: true,
+          type: true,
+        };
+        
+        setNotifications((prev) => [...prev, newNotification]);
+        localStorage.setItem('token', response.data.user.token);
+        
+        setTimeout(() => {
+          setNotifications((prev) =>
+            prev.map((noti) => (noti.id === id ? { ...noti, open: false } : noti))
+          );
+          navigate('/');
+        }, 2000);
+      } else {
+        throw new Error(response.data.user.ErrorMessage);
+      }
+    } catch (error) {
+      const id = Date.now();
+      const newNotification = {
+        id,
+        msg: error.message || 'Đăng nhập Google không thành công',
+        open: true,
+        type: false,
+      };
+      
+      setNotifications((prev) => [...prev, newNotification]);
+      setTimeout(() => {
+        setNotifications((prev) =>
+          prev.map((noti) => (noti.id === id ? { ...noti, open: false } : noti))
+        );
+        navigate('/');
+      }, 2000);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleError = () => {
+    const id = Date.now();
+    const newNotification = {
+      id,
+      msg: 'Đăng nhập Google không thành công',
+      open: true,
+      type: false,
+    };
+    
+    setNotifications((prev) => [...prev, newNotification]);
+
+    setTimeout(() => {
+      setNotifications((prev) =>
+        prev.map((noti) => (noti.id === id ? { ...noti, open: false } : noti))
+      );
+      navigate('/');
+    }, 2000);
+  };
   return (
     <div className="bg-[#fffbf1] h-screen ">
       <div
@@ -180,13 +255,14 @@ function LoginComponent() {
                     Hoặc đăng nhập nhanh với
                   </div>
                   <div className="place-content-center grid ">
-                    <div className="grid grid-cols-2  gap-6 max-w-[100px]">
-                      <button>
-                        <img src="https://res.cloudinary.com/dumx42hqq/image/upload/v1732051461/facebook_icon_zbcxhg.svg" />
-                      </button>
-                      <button>
-                        <img src="https://res.cloudinary.com/dumx42hqq/image/upload/v1732241424/ca1ddc49-ecbc-4c34-930a-70342c4ffe38.png" />
-                      </button>
+                    <div className="  gap-6">
+                      <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleError}
+                        size="large"
+                        shape="rectangular"
+                        logo_alignment="center"
+                      />
                     </div>
                   </div>
 
@@ -200,9 +276,9 @@ function LoginComponent() {
                         Đăng ký
                       </Link>{" "}
                       hoặc{" "}
-                      <button className="text-[#1250dc] font-semibold">
+                      <Link to='/quen-mat-khau' className="text-[#1250dc] font-semibold">
                         Quên mật khẩu
-                      </button>
+                      </Link>
                     </span>
                   </div>
                 </div>
@@ -284,7 +360,7 @@ function LoginComponent() {
                   <div className={`justify-center flex`}>
                     <img src={logo} className="w-[300px]" />
                   </div>
-                  <h2 className="font-semibold my-3 text-[20px] whitespace-nowrap">
+                  <h2 className="font-semibold my-3 text-[20px] text-center">
                     Chào mừng trở lại thành viên của chúng tôi
                   </h2>
                   <div className="justify-center grid">
@@ -336,17 +412,18 @@ function LoginComponent() {
                     Hoặc đăng nhập nhanh với
                   </div>
                   <div className="place-content-center grid ">
-                    <div className="grid grid-cols-2  gap-6 max-w-[100px]">
-                      <button>
-                        <img src="https://res.cloudinary.com/dumx42hqq/image/upload/v1732051461/facebook_icon_zbcxhg.svg" />
-                      </button>
-                      <button>
-                        <img src="https://res.cloudinary.com/dumx42hqq/image/upload/v1732241424/ca1ddc49-ecbc-4c34-930a-70342c4ffe38.png" />
-                      </button>
-                    </div>
+                    <div className="  gap-6">
+                        <GoogleLogin
+                          onSuccess={handleGoogleSuccess}
+                          onError={handleGoogleError}
+                          size="large"
+                          shape="rectangular"
+                          logo_alignment="center"
+                        />
+                      </div>
                   </div>
 
-                  <div className="font-medium py-6 justify-end flex text-[12px]">
+                  <div className="font-medium py-6 justify-end mr-2 flex text-[12px]">
                     <span>
                       Bạn chưa có tài khoản{" "}
                       <Link
@@ -356,9 +433,9 @@ function LoginComponent() {
                         Đăng ký
                       </Link>{" "}
                       hoặc{" "}
-                      <button className="text-[#1250dc] font-semibold">
+                      <Link to='/quen-mat-khau' className="text-[#1250dc] font-semibold">
                         Quên mật khẩu
-                      </button>
+                      </Link>
                     </span>
                   </div>
                 </div>

@@ -183,12 +183,21 @@ const InfoUserComponent = () => {
                       <strong className="text-[#1255ff]">Email: </strong>
                       {userinfo.user.Email}
                     </p>
-                    <p className="text-lg">
+                    {typeof userinfo.user.SDT !== 'object' ?
+                      <p className="text-lg">
                       <strong className="text-[#1255ff]">
                         Số điện thoại:{" "}
                       </strong>
                       {userinfo.user.SDT}
-                    </p>
+                      </p>
+                      :
+                      <p className="text-lg">
+                        <strong className="text-[#1255ff]">
+                          Số điện thoại:{" "}
+                        </strong>
+                        Chưa có liên hệ admin để cập nhật
+                      </p>
+                    }
                     <p className="text-lg">
                       <strong className="text-[#1255ff]">Địa chỉ: </strong>
                       {userinfo.user.Address || "Hãy đợi chúng tôi Update"}
