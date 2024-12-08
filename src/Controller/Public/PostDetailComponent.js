@@ -15,6 +15,7 @@ function PostDetailComponent() {
     const navigate = useNavigate();
 
     useEffect(() => {
+        setIsLoading(true)
         axios.post(`${urlapi}/api/PostPublics/GetByLinkRoute`, { LinkRoute })
         .then(res => {
             setData(res.data.data);
