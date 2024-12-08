@@ -72,8 +72,10 @@ function ForgotPasswordComponent() {
     }
   };
 
+
   return (
     <div className="bg-[#fffbf1] h-screen ">
+        {isLoading && <LoadingLoginForm/>}
       <div
         className={`bg-[url("https://res.cloudinary.com/dumx42hqq/image/upload/v1732230517/Untitled_Project_1_hqaor0.jpg")] bg-animations`}
       >

@@ -225,7 +225,9 @@ function AccountAdmin() {
                 key={user.ID}
                 className={`hover:bg-gray-100 transition-colors duration-200`}
               >
-                <td className={`px-6 py-4 whitespace-nowrap ${openedit && user.ID === confirmID && "bg-gray-700 text-white"}`}>{user.ID}</td>
+                <td className={`px-6 py-4 whitespace-nowrap ${openedit && user.ID === confirmID && "bg-gray-700 text-white"}`}>
+                  {user.ID} {typeof user.GoogleId !=="object" && <p className="font-semibold">(Login google true)</p>}
+                </td>
                 <td className={`px-6 py-4 whitespace-nowrap ${openedit && user.ID === confirmID && "bg-gray-700 text-white"}`}>
                   {openedit && user.ID === confirmID ? (
                     <input 
@@ -245,7 +247,10 @@ function AccountAdmin() {
                       className="border rounded-lg px-2 py-2 outline-none text-black"
                     />
                   ) : (
-                    <div>{user.SDT}</div>
+                    <div>
+                      {typeof user.SDT !== "object" ? <p>{user.SDT}</p> : <p>NULL</p>}
+                      
+                    </div>
                   )}
                 </td>
                 <td className={`px-6 py-4 whitespace-nowrap ${openedit && user.ID === confirmID && "bg-gray-700 text-white"}`}>
@@ -256,7 +261,9 @@ function AccountAdmin() {
                       className="border rounded-lg px-2 py-2 outline-none text-black"
                     />
                   ) : (
-                    <div>{user.Password}</div>
+                    <div>
+                      {typeof user.Password !== "object" ? <p>{user.Password}</p> : <p>NULL</p>}
+                    </div>
                   )}
                 </td>
                 <td className={`px-6 py-4 whitespace-nowrap ${openedit && user.ID === confirmID && "bg-gray-700 text-white"}`}>
