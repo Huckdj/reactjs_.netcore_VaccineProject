@@ -150,7 +150,7 @@ function LoginComponent() {
   return (
     <div className="bg-[#fffbf1] h-screen ">
       <div
-        className={`bg-[url("https://res.cloudinary.com/dumx42hqq/image/upload/v1732230517/Untitled_Project_1_hqaor0.jpg")] bg-animations`}
+        className={`bg-[url("https://res.cloudinary.com/dumx42hqq/image/upload/v1732230517/Untitled_Project_1_hqaor0.jpg")] bg-animations py-auto`}
       >
         <div className="lg:block hidden">
           <div className="flex items-center p-10 relative container mx-auto">
