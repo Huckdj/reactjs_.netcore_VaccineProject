@@ -75,8 +75,13 @@ const ProductDetail = () => {
                 <p>
                   <strong>Xuất xứ:</strong> {product.CountryItem}
                 </p>
-                <p>
-                  <strong>Độ tuổi:</strong> {product.AgeType}
+                <p> 
+                  {product.AgeType !== 'All' ?
+                    <p><strong>Độ tuổi: </strong> {product.AgeType}</p>
+                    : 
+                    <p className='whitespace-nowrap'><strong>Độ tuổi: </strong>Phù hợp tất cả lứa tuổi</p>
+                  }
+                  
                 </p>
                 <p>
                   <strong>Ngày tạo:</strong> {new Date(product.CreateDate).toLocaleDateString()}

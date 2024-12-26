@@ -1,9 +1,10 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { Input, SelectPicker } from 'rsuite';
 import HeaderComponent from './Header/HeaderComponent';
 import FooterComponent from './FooterComponent';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { debounce } from 'lodash';
 
 const VaccineProductList = () => {
   const urlapi = process.env.REACT_APP_API_BASE_URL;
@@ -36,25 +37,11 @@ const VaccineProductList = () => {
         const combinedData = [
           ...singleData.map((item) => ({ 
             ...item, 
-            Type: 'single',
-            Price: item.Price || 0,
-            Name: item.Name || 'Không có tên',
-            ShortContent: item.ShortContent || '',
-            LinkImages: item.LinkImages || '',
-            PriceFormat: item.PriceFormat || '0',
-            LinkRoute: item.LinkRoute || '',
-            AgeType: item.AgeType || 'all'
+            Type: 'single'
           })),
           ...packData.map((item) => ({ 
             ...item, 
-            Type: 'combo',
-            Price: item.Price || 0,
-            Name: item.Name || 'Không có tên',
-            ShortContent: item.ShortContent || '',
-            LinkImages: item.LinkImages || '',
-            PriceFormat: item.PriceFormat || '0',
-            LinkRoute: item.LinkRoute || '',
-            AgeType: item.AgeType || 'all'
+            Type: 'combo'
           })),
         ];
 
@@ -70,17 +57,41 @@ const VaccineProductList = () => {
     fetchData();
   }, [urlapi]);
 
+  // Debounce search term updates
+  const debouncedSetSearchTerm = useCallback(
+    debounce((value) => {
+      setSearchTerm(value);
+    }, 300),
+    []
+  );
+
+  const normalizeText = (text) => {
+    if (!text) return '';
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/Đ/g, 'D');
+  };
+
+  const handleSearch = (value) => {
+    debouncedSetSearchTerm(value);
+  };
+
   const vaccineTypeData = [
     { label: 'Tất cả', value: 'all' },
     { label: 'Vắc xin lẻ', value: 'single' },
     { label: 'Vắc xin gói', value: 'combo' },
   ];
+  
   const ageRangeData = [
     { label: 'Tất cả độ tuổi', value: 'all' },
     { label: 'Trẻ Em (0-18 tuổi)', value: '0-18' },
     { label: 'Người Trưởng Thành (18-50 tuổi)', value: '18-50' },
     { label: 'Người Cao Tuổi (50-80 tuổi)', value: '50-80' },
   ];
+
   const priceRangeData = [
     { label: 'Tất cả', value: 'all' },
     { label: 'Dưới 3 triệu', value: '0-3tr' },
@@ -95,7 +106,6 @@ const VaccineProductList = () => {
     setPriceRange('all');
   };
 
-  // Bộ lọc dữ liệu
   const filteredVaccines = useMemo(() => {
     if (
       searchTerm === '' && 
@@ -106,18 +116,19 @@ const VaccineProductList = () => {
       return initialData;
     }
 
+    const normalizedSearchTerm = normalizeText(searchTerm);
+
     return initialData.filter((vaccine) => {
+      // Tìm kiếm chỉ trong trường Name
+      const normalizedName = normalizeText(vaccine.Name);
       const matchesSearch = searchTerm === '' || 
-        vaccine.Name.toLowerCase().includes(searchTerm.toLowerCase());
+        normalizedName.includes(normalizedSearchTerm);
       
       const matchesType = vaccineType === 'all' || 
-        (vaccineType === 'single' && vaccine.Type === 'single') || 
-        (vaccineType === 'combo' && vaccine.Type === 'combo');
+        vaccine.Type === vaccineType;
       
       const matchesAge = ageRange === 'all' || 
-        (ageRange === '0-18' && (vaccine.AgeType === '0-18' || vaccine.TypePack?.includes('0-18'))) ||
-        (ageRange === '18-50' && (vaccine.AgeType === '18-50' || vaccine.TypePack?.includes('18-50'))) ||
-        (ageRange === '50-80' && (vaccine.AgeType === '50-80' || vaccine.TypePack?.includes('50-80')));
+        vaccine.AgeType === ageRange;
       
       const matchesPrice =
         priceRange === 'all' ||
@@ -153,7 +164,6 @@ const VaccineProductList = () => {
     <>
       <HeaderComponent />
       <div className="container mx-auto p-4">
-        {/* Nút hamburger menu cho thiết bị di động */}
         <div className="md:hidden mb-4 flex justify-end">
           <button onClick={toggleMobileMenu} className="p-2 focus:outline-none">
             <svg
@@ -170,11 +180,11 @@ const VaccineProductList = () => {
 
         <div className={`grid grid-cols-1 gap-4 mb-6 ${isMobileMenuOpen ? 'block' : 'hidden'} md:grid md:grid-cols-2 lg:grid-cols-4 md:block`}>
           <div>
-            <label className='font-semibold py-2'>Tìm kiếm</label>
+            <label className='font-semibold py-2'>Tìm kiếm tên vắc xin</label>
             <Input
-              placeholder="Tìm kiếm vắc xin..."
-              value={searchTerm}
-              onChange={(value) => setSearchTerm(value)}
+              placeholder="Nhập tên vắc xin..."
+              defaultValue={searchTerm}
+              onChange={handleSearch}
               className="w-full"
             />
           </div>
@@ -185,7 +195,7 @@ const VaccineProductList = () => {
               searchable={false}
               value={vaccineType}
               onChange={setVaccineType}
-              placeholder="Loại vắc xin"
+              placeholder="Chọn loại vắc xin"
               className="w-full"
             />
           </div>
@@ -196,7 +206,7 @@ const VaccineProductList = () => {
               searchable={false}
               value={ageRange}
               onChange={setAgeRange}
-              placeholder="Độ tuổi"
+              placeholder="Chọn độ tuổi"
               className="w-full"
             />
           </div>
@@ -207,7 +217,7 @@ const VaccineProductList = () => {
               searchable={false}
               value={priceRange}
               onChange={setPriceRange}
-              placeholder="Mức giá"
+              placeholder="Chọn mức giá"
               className="w-full"
             />
           </div>
@@ -222,7 +232,6 @@ const VaccineProductList = () => {
           </button>
         </div>
 
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredVaccines.map((vaccine) => (
             <div key={vaccine.ID} className="bg-white border rounded-lg shadow-md overflow-hidden transition-transform hover:border-blue-600 hover:shadow-xl">
@@ -236,7 +245,7 @@ const VaccineProductList = () => {
               />
               <div className="p-4">
                 <h3 className="text-lg font-bold mb-2 truncate">{vaccine.Name}</h3>
-                <p className="text-sm text-gray-600 mb-2">{vaccine.ShortContent}</p>
+                <p className="text-sm text-gray-600 mb-2 line-clamp-1 whitespace-nowrap">{vaccine.ShortContent}</p>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-green-600 font-semibold">{vaccine.PriceFormat} VNĐ</span>
                 </div>
@@ -251,7 +260,11 @@ const VaccineProductList = () => {
           ))}
         </div>
 
-        {filteredVaccines.length === 0 && <div className="text-center text-gray-500 mt-8">Không tìm thấy vắc xin phù hợp</div>}
+        {filteredVaccines.length === 0 && (
+          <div className="text-center text-gray-500 mt-8">
+            Không tìm thấy vắc xin phù hợp
+          </div>
+        )}
       </div>
       <FooterComponent />
     </>

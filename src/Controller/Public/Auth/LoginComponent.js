@@ -150,10 +150,10 @@ function LoginComponent() {
   return (
     <div className="bg-[#fffbf1] h-screen ">
       <div
-        className={`bg-[url("https://res.cloudinary.com/dumx42hqq/image/upload/v1732230517/Untitled_Project_1_hqaor0.jpg")] bg-animations py-auto`}
+        className={`bg-[url("https://res.cloudinary.com/dumx42hqq/image/upload/v1732230517/Untitled_Project_1_hqaor0.jpg")] bg-animations `}
       >
         <div className="lg:block hidden">
-          <div className="flex items-center p-10 relative container mx-auto">
+          <div className="flex items-center p-10 relative container mx-auto my-auto">
             <Link to='/'><img src={logo} className="w-[200px]" /></Link>
             <span className="font-semibold absolute bottom-0 whitespace-nowrap ">
               Đăng nhập vào dịch vụ của chúng tôi
