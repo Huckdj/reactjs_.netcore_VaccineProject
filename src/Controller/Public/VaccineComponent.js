@@ -18,6 +18,7 @@ const VaccineProductList = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visibleItems, setVisibleItems] = useState(10);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,7 +59,11 @@ const VaccineProductList = () => {
     fetchData();
   }, [urlapi]);
 
-  // Debounce search term updates
+  // Reset visible items when filters change
+  useEffect(() => {
+    setVisibleItems(10);
+  }, [searchTerm, vaccineType, ageRange, priceRange]);
+
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
       setSearchTerm(value);
@@ -105,6 +110,7 @@ const VaccineProductList = () => {
     setVaccineType('all');
     setAgeRange('all');
     setPriceRange('all');
+    setVisibleItems(10);
   };
 
   const filteredVaccines = useMemo(() => {
@@ -120,7 +126,6 @@ const VaccineProductList = () => {
     const normalizedSearchTerm = normalizeText(searchTerm);
 
     return initialData.filter((vaccine) => {
-      // Tìm kiếm chỉ trong trường Name
       const normalizedName = normalizeText(vaccine.Name);
       const matchesSearch = searchTerm === '' || 
         normalizedName.includes(normalizedSearchTerm);
@@ -140,6 +145,18 @@ const VaccineProductList = () => {
       return matchesSearch && matchesType && matchesAge && matchesPrice;
     });
   }, [searchTerm, vaccineType, ageRange, priceRange, initialData]);
+
+  // Get only the visible vaccines based on current visibleItems count
+  const visibleVaccines = useMemo(() => {
+    return filteredVaccines.slice(0, visibleItems);
+  }, [filteredVaccines, visibleItems]);
+
+  const remainingItems = filteredVaccines.length - visibleItems;
+  const itemsToLoad = Math.min(10, remainingItems);
+
+  const handleLoadMore = () => {
+    setVisibleItems(prev => prev + 10);
+  };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -234,7 +251,7 @@ const VaccineProductList = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredVaccines.map((vaccine) => (
+          {visibleVaccines.map((vaccine) => (
             <div key={vaccine.ID} className="bg-white border rounded-lg shadow-md overflow-hidden transition-transform hover:border-blue-600 hover:shadow-xl">
               <img 
                 src={vaccine.LinkImages} 
@@ -261,11 +278,20 @@ const VaccineProductList = () => {
           ))}
         </div>
 
-        {filteredVaccines.length === 0 && (
+        {filteredVaccines.length === 0 ? (
           <div className="text-center text-gray-500 mt-8">
             Không tìm thấy vắc xin phù hợp
           </div>
-        )}
+        ) : remainingItems > 0 ? (
+          <div className="text-center mt-8">
+            <button
+              onClick={handleLoadMore}
+              className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition"
+            >
+              Xem thêm {itemsToLoad} sản phẩm
+            </button>
+          </div>
+        ) : null}
       </div>
       <FooterComponent />
     </>
