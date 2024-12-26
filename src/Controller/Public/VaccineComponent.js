@@ -5,6 +5,7 @@ import FooterComponent from './FooterComponent';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { debounce } from 'lodash';
+import LoadingComponent from '../Additional/LoadingComponent';
 
 const VaccineProductList = () => {
   const urlapi = process.env.REACT_APP_API_BASE_URL;
@@ -147,7 +148,7 @@ const VaccineProductList = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-blue-500"></div>
+        <LoadingComponent/>
       </div>
     );
   }
